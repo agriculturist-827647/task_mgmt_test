@@ -35,8 +35,8 @@ Thumbs.db
 coverage/
 .nyc_output/
 
-# Docker
-.docker/
+# Vercel
+.vercel
 
 # Misc
 *.pem

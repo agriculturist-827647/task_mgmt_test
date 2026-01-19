@@ -1,176 +1,98 @@
-# Task Management MVP
+# Task Management App
 
-A full-stack task management application with user authentication built using React, Node.js/Express, and MongoDB.
+A full-stack task management application built with React and Vercel Serverless Functions.
 
 ## Features
 
-- **User Authentication**: Secure registration and login with JWT tokens
-- **Task Management**: Create, read, update, and delete tasks
-- **Task Organization**: Filter tasks by completion status
-- **Due Dates**: Set and track task due dates
-- **Responsive Design**: Works on desktop and mobile browsers
+- User authentication (register, login, logout)
+- Create, read, update, and delete tasks
+- Mark tasks as complete/incomplete
+- Filter tasks by status
+- Set due dates
+- Responsive design
 
 ## Tech Stack
 
-### Backend
-- Node.js with Express.js
-- MongoDB with Mongoose ODM
-- JWT for authentication
-- bcrypt for password hashing
-- Helmet, CORS, and rate limiting for security
+- **Frontend**: React 18 with Context API
+- **Backend**: Vercel Serverless Functions
+- **Deployment**: Vercel (zero-config)
 
-### Frontend
-- React.js with Context API
-- Custom CSS with responsive design
-- Fetch API for HTTP requests
+## Deploy to Vercel
 
-### DevOps
-- Docker and Docker Compose
-- Nginx for production frontend serving
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/task_mgmt_test)
+
+Or deploy manually:
+
+1. Push this repo to GitHub
+2. Import to Vercel at [vercel.com/new](https://vercel.com/new)
+3. Vercel auto-detects Create React App - just click Deploy
 
 ## Project Structure
 
 ```
 task_mgmt_test/
-├── backend/
-│   ├── src/
-│   │   ├── config/         # Database configuration
-│   │   ├── controllers/    # Route handlers
-│   │   ├── middleware/     # Auth and validation middleware
-│   │   ├── models/         # Mongoose models
-│   │   ├── routes/         # Express routes
-│   │   └── server.js       # Application entry point
-│   ├── tests/              # Jest test files
-│   ├── Dockerfile
-│   └── package.json
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/     # React components
-│   │   ├── context/        # Auth context
-│   │   ├── services/       # API service layer
-│   │   └── styles/         # CSS files
-│   ├── Dockerfile
-│   ├── nginx.conf
-│   └── package.json
-├── docker-compose.yml
-└── README.md
+├── api/                    # Vercel Serverless Functions
+│   ├── auth/
+│   │   ├── login.js
+│   │   ├── register.js
+│   │   └── verify.js
+│   ├── tasks/
+│   │   ├── index.js       # GET all, POST create
+│   │   └── [id].js        # GET, PUT, PATCH, DELETE by id
+│   └── lib/
+│       ├── auth.js        # Auth middleware
+│       └── store.js       # Data store & utilities
+├── src/                    # React application
+│   ├── components/
+│   ├── context/
+│   ├── services/
+│   └── styles/
+├── public/
+├── package.json
+└── vercel.json
 ```
 
-## Getting Started
+## Local Development
 
-### Prerequisites
-- Node.js 18+
-- MongoDB 7+
-- Docker and Docker Compose (for containerized deployment)
+```bash
+# Install dependencies
+npm install
 
-### Local Development
+# Run development server
+npm start
+```
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd task_mgmt_test
-   ```
-
-2. **Backend Setup**
-   ```bash
-   cd backend
-   cp .env.example .env
-   # Edit .env with your configuration
-   npm install
-   npm run dev
-   ```
-
-3. **Frontend Setup**
-   ```bash
-   cd frontend
-   npm install
-   npm start
-   ```
-
-4. **Start MongoDB**
-   ```bash
-   mongod --dbpath /path/to/data
-   ```
-
-### Docker Deployment
-
-1. **Start all services**
-   ```bash
-   docker-compose up -d
-   ```
-
-2. **Access the application**
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:5000
-
-3. **Stop services**
-   ```bash
-   docker-compose down
-   ```
+The app runs at http://localhost:3000
 
 ## API Endpoints
 
-### Authentication
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/api/auth/register` | Register a new user |
-| POST | `/api/auth/login` | Login user |
-| POST | `/api/auth/logout` | Logout user |
-| GET | `/api/auth/verify` | Verify JWT token |
-| GET | `/api/auth/profile` | Get user profile |
-
-### Tasks
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/tasks` | Get all user tasks |
-| POST | `/api/tasks` | Create a new task |
-| GET | `/api/tasks/:id` | Get a specific task |
-| PUT | `/api/tasks/:id` | Update a task |
-| DELETE | `/api/tasks/:id` | Delete a task |
-| PATCH | `/api/tasks/:id/toggle` | Toggle task completion |
-
-### Query Parameters (GET /api/tasks)
-- `completed`: Filter by completion status (`true` or `false`)
-- `sort`: Sort field (default: `-createdAt`)
-- `limit`: Number of tasks per page (default: 50)
-- `page`: Page number (default: 1)
+| POST | `/api/auth/register` | Register new user |
+| POST | `/api/auth/login` | Login |
+| GET | `/api/auth/verify` | Verify token |
+| GET | `/api/tasks` | Get all tasks |
+| POST | `/api/tasks` | Create task |
+| GET | `/api/tasks/:id` | Get task |
+| PUT | `/api/tasks/:id` | Update task |
+| PATCH | `/api/tasks/:id` | Toggle complete |
+| DELETE | `/api/tasks/:id` | Delete task |
 
 ## Environment Variables
 
-### Backend (.env)
-```env
-NODE_ENV=development
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/taskapp
+For production, set in Vercel dashboard:
+
+```
 JWT_SECRET=your-secret-key
-JWT_EXPIRES_IN=24h
-BCRYPT_ROUNDS=12
-CLIENT_URL=http://localhost:3000
 ```
 
-### Frontend (.env)
-```env
-REACT_APP_API_URL=/api
-```
+## Note
 
-## Testing
-
-### Backend Tests
-```bash
-cd backend
-npm test
-```
-
-## Security Features
-
-- Password hashing with bcrypt (12 salt rounds)
-- JWT tokens with 24-hour expiration
-- Rate limiting on API endpoints
-- Input validation and sanitization
-- Helmet.js security headers
-- CORS configuration
-- MongoDB injection prevention
+This demo uses in-memory storage. Data resets on serverless cold starts. For persistent storage, integrate:
+- MongoDB Atlas
+- Supabase
+- PlanetScale
+- Vercel Postgres
 
 ## License
 

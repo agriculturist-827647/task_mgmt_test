@@ -1,0 +1,51 @@
+.app { min-height: 100vh; }
+.header { background: var(--bg-card); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.header-content { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.header-title { font-size: 1.5rem; color: var(--primary); }
+.header-user { display: flex; align-items: center; gap: 1rem; }
+.user-email { font-size: 0.875rem; color: var(--text-secondary); }
+.main-content { max-width: 800px; margin: 0 auto; padding: 1.5rem; }
+.auth-container { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1.5rem; }
+.auth-card { background: var(--bg-card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 2rem; width: 100%; max-width: 400px; }
+.auth-title { text-align: center; color: var(--primary); margin-bottom: 0.25rem; }
+.auth-subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 2rem; }
+.auth-form h2 { margin-bottom: 1.5rem; font-size: 1.25rem; }
+.auth-form .btn-primary { width: 100%; padding: 1rem; font-size: 1rem; }
+.auth-switch { text-align: center; margin-top: 1.5rem; color: var(--text-secondary); font-size: 0.875rem; }
+.task-list-container { background: var(--bg-card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem; }
+.task-form { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+.task-form-main { display: flex; gap: 0.5rem; }
+.task-title-input { flex: 1; }
+.task-form-expanded { margin-top: 1rem; padding: 1rem; background: var(--bg-hover); border-radius: var(--radius); }
+.task-filters { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.filter-btn { padding: 0.25rem 1rem; font-size: 0.875rem; border: 1px solid var(--border); border-radius: 20px; background: var(--bg-card); color: var(--text-secondary); cursor: pointer; transition: all 0.15s; }
+.filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+.filter-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+.task-list { display: flex; flex-direction: column; gap: 0.5rem; }
+.task-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); transition: all 0.15s; }
+.task-item:hover { border-color: var(--primary); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.task-item.completed { opacity: 0.7; background: var(--bg-hover); }
+.task-item.completed .task-title { text-decoration: line-through; color: var(--text-secondary); }
+.task-item.editing { flex-direction: column; gap: 0.5rem; }
+.task-checkbox { position: relative; flex-shrink: 0; }
+.task-checkbox input[type="checkbox"] { position: absolute; opacity: 0; width: 20px; height: 20px; cursor: pointer; }
+.task-checkbox label { display: block; width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px; cursor: pointer; transition: all 0.15s; }
+.task-checkbox input:checked + label { background: var(--success); border-color: var(--success); }
+.task-checkbox input:checked + label::after { content: ''; position: absolute; left: 6px; top: 2px; width: 6px; height: 10px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.task-content { flex: 1; min-width: 0; }
+.task-title { font-size: 1rem; font-weight: 500; margin-bottom: 0.25rem; word-break: break-word; }
+.task-description { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem; word-break: break-word; }
+.task-due-date { display: inline-block; font-size: 0.75rem; color: var(--text-muted); background: var(--bg-hover); padding: 0.25rem 0.5rem; border-radius: 4px; }
+.task-due-date.overdue { background: #fef2f2; color: var(--danger); }
+.task-actions { display: flex; gap: 0.25rem; flex-shrink: 0; }
+.empty-state { text-align: center; padding: 2rem; color: var(--text-secondary); }
+.empty-hint { font-size: 0.875rem; color: var(--text-muted); margin-top: 0.5rem; }
+@media (max-width: 640px) {
+  .header-content { flex-direction: column; gap: 0.5rem; text-align: center; }
+  .header-user { flex-direction: column; gap: 0.5rem; }
+  .task-form-main { flex-direction: column; }
+  .task-form-main .btn { width: 100%; }
+  .task-item { flex-wrap: wrap; }
+  .task-actions { width: 100%; justify-content: flex-end; margin-top: 0.5rem; }
+  .filter-btn { flex: 1; text-align: center; }
+}
